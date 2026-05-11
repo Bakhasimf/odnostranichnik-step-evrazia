@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 920" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Antique-inspired Steppe Eurasia map">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#faf6eb"/>
+      <stop offset="48%" stop-color="#f1ead9"/>
+      <stop offset="100%" stop-color="#ece3cf"/>
+    </linearGradient>
+    <radialGradient id="washGold" cx="0.25" cy="0.28" r="0.72">
+      <stop offset="0%" stop-color="#d6b36a" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#d6b36a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="washGreen" cx="0.82" cy="0.18" r="0.6">
+      <stop offset="0%" stop-color="#284536" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#284536" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="landGrad" x1="0.08" y1="0.1" x2="0.88" y2="0.9">
+      <stop offset="0%" stop-color="#f3ecdc"/>
+      <stop offset="100%" stop-color="#d7ccb3"/>
+    </linearGradient>
+    <linearGradient id="steppeGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#cda55b" stop-opacity="0.16"/>
+      <stop offset="50%" stop-color="#d9bb77" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#b98b3c" stop-opacity="0.14"/>
+    </linearGradient>
+    <pattern id="paperGrain" x="0" y="0" width="56" height="56" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="12" r="1" fill="#876d37" opacity="0.06"/>
+      <circle cx="30" cy="24" r="0.9" fill="#274133" opacity="0.06"/>
+      <circle cx="48" cy="40" r="0.75" fill="#876d37" opacity="0.05"/>
+      <path d="M 10 42 q 5 -3 10 0" fill="none" stroke="#274133" stroke-width="0.5" opacity="0.04"/>
+    </pattern>
+    <filter id="softGlow" x="-8%" y="-8%" width="116%" height="116%">
+      <feGaussianBlur stdDeviation="1.4"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="920" fill="url(#paper)"/>
+  <rect width="1600" height="920" fill="url(#washGold)"/>
+  <rect width="1600" height="920" fill="url(#washGreen)"/>
+  <rect width="1600" height="920" fill="url(#paperGrain)" opacity="0.9"/>
+
+  <g fill="none" stroke="#c9baa0" stroke-width="0.9" opacity="0.46">
+    <path d="M 116 0 L 116 920"/>
+    <path d="M 326 0 L 326 920"/>
+    <path d="M 540 0 L 540 920"/>
+    <path d="M 770 0 L 770 920"/>
+    <path d="M 1010 0 L 1010 920"/>
+    <path d="M 1260 0 L 1260 920"/>
+    <path d="M 1468 0 L 1468 920"/>
+    <path d="M 0 152 L 1600 152"/>
+    <path d="M 0 336 L 1600 336"/>
+    <path d="M 0 518 L 1600 518"/>
+    <path d="M 0 700 L 1600 700"/>
+  </g>
+
+  <g transform="translate(126 54) scale(0.82)">
+  <g opacity="0.93">
+    <path
+      fill="url(#landGrad)"
+      stroke="#425847"
+      stroke-width="1.35"
+      d="M 90 296
+         Q 148 246 226 234
+         Q 302 222 360 188
+         Q 414 156 470 148
+         Q 546 138 614 146
+         Q 676 154 720 144
+         Q 774 132 850 148
+         Q 928 164 996 170
+         Q 1072 176 1130 158
+         Q 1186 142 1240 154
+         Q 1308 170 1368 220
+         Q 1444 284 1482 372
+         Q 1520 460 1498 542
+         Q 1478 614 1434 646
+         Q 1392 676 1332 680
+         Q 1266 684 1232 710
+         Q 1192 742 1134 744
+         Q 1080 744 1038 714
+         Q 1000 688 946 694
+         Q 874 704 826 686
+         Q 780 670 716 682
+         Q 658 694 612 678
+         Q 566 662 512 676
+         Q 462 690 416 720
+         Q 360 756 286 742
+         Q 230 730 188 696
+         Q 146 662 128 610
+         Q 108 556 120 498
+         Q 128 458 116 422
+         Q 104 382 90 296 Z"/>
+
+    <path
+      fill="#d6d9d0"
+      stroke="#607060"
+      stroke-width="1.3"
+      opacity="0.72"
+      d="M 64 246
+         Q 106 220 160 214
+         Q 220 210 268 174
+         Q 312 142 346 136
+         Q 388 128 420 144
+         Q 452 160 440 194
+         Q 428 230 388 246
+         Q 338 264 274 278
+         Q 208 292 164 302
+         Q 122 308 96 292
+         Q 72 278 64 246 Z"/>
+
+    <path
+      fill="#d8ddd4"
+      stroke="#61725d"
+      stroke-width="1.2"
+      opacity="0.7"
+      d="M 1264 214
+         Q 1328 196 1386 226
+         Q 1436 252 1458 306
+         Q 1476 350 1466 400
+         Q 1456 448 1416 464
+         Q 1378 480 1340 448
+         Q 1306 420 1288 378
+         Q 1264 324 1258 272
+         Q 1252 230 1264 214 Z"/>
+
+    <path
+      fill="#daddd3"
+      stroke="#62745f"
+      stroke-width="1.2"
+      opacity="0.68"
+      d="M 100 574
+         Q 140 548 176 552
+         Q 214 556 234 586
+         Q 252 612 246 646
+         Q 240 684 208 694
+         Q 170 708 142 678
+         Q 110 646 100 574 Z"/>
+
+    <path
+      fill="#d7d7cf"
+      stroke="#637260"
+      stroke-width="1.05"
+      opacity="0.62"
+      d="M 530 758
+         Q 562 742 602 754
+         Q 640 766 646 794
+         Q 652 818 630 836
+         Q 604 858 570 848
+         Q 536 838 524 810
+         Q 512 780 530 758 Z"/>
+  </g>
+
+  <path
+    fill="url(#steppeGrad)"
+    opacity="0.95"
+    d="M 228 430
+       Q 314 388 414 380
+       Q 508 372 590 356
+       Q 676 340 760 340
+       Q 852 340 934 336
+       Q 1026 332 1106 342
+       Q 1188 352 1262 388
+       Q 1312 414 1348 446
+       Q 1308 488 1240 508
+       Q 1158 532 1088 526
+       Q 1004 520 918 528
+       Q 844 536 760 544
+       Q 686 552 616 558
+       Q 540 564 468 562
+       Q 384 560 314 538
+       Q 260 520 214 488
+       Q 212 456 228 430 Z"/>
+
+  <g fill="none" stroke="#4e6553" stroke-linecap="round">
+    <path opacity="0.34" stroke-width="1.35" d="M 196 342 Q 280 314 372 316 Q 462 318 552 296 Q 632 278 712 284 Q 808 292 906 284 Q 1028 274 1134 250 Q 1240 224 1380 266"/>
+    <path opacity="0.28" stroke-width="1.15" d="M 180 442 Q 290 410 394 422 Q 496 434 596 416 Q 704 396 812 408 Q 924 420 1034 408 Q 1154 394 1288 430"/>
+    <path opacity="0.24" stroke-width="1.05" d="M 264 560 Q 344 518 432 524 Q 532 530 628 522 Q 734 512 830 534 Q 928 556 1034 548 Q 1138 540 1214 566"/>
+    <path opacity="0.2" stroke-width="1" d="M 450 232 Q 516 264 560 322 Q 598 372 646 430 Q 694 492 760 518"/>
+    <path opacity="0.18" stroke-width="0.95" d="M 880 190 Q 904 238 954 284 Q 1000 328 1050 370 Q 1110 420 1190 454"/>
+  </g>
+
+  <g fill="none" stroke="#c39a4c" stroke-width="2.1" opacity="0.78" stroke-linecap="round">
+    <path d="M 192 472 Q 280 438 358 426 T 520 412 T 682 404 T 856 394 T 1046 386 T 1232 404 T 1392 456" stroke-dasharray="7 10"/>
+    <path d="M 220 360 Q 346 330 476 336 T 736 334 T 1000 318 T 1320 336" stroke-dasharray="3 8" opacity="0.46"/>
+    <path d="M 248 576 Q 404 544 560 550 T 862 556 T 1194 564 T 1410 594" stroke-dasharray="4 9" opacity="0.42"/>
+    <path d="M 312 514 Q 488 430 688 372 T 1060 292 T 1408 238" stroke-dasharray="5 11" opacity="0.54"/>
+    <path d="M 396 626 Q 520 528 648 474 T 910 406 T 1212 312" stroke-dasharray="4 10" opacity="0.38"/>
+  </g>
+
+  <g fill="#c39a4c">
+    <circle cx="254" cy="462" r="6"/>
+    <circle cx="414" cy="422" r="5.5"/>
+    <circle cx="590" cy="410" r="6.5"/>
+    <circle cx="786" cy="398" r="5.5"/>
+    <circle cx="982" cy="390" r="5.5"/>
+    <circle cx="1188" cy="400" r="5"/>
+    <circle cx="1348" cy="448" r="5.5"/>
+    <circle cx="466" cy="560" r="4.8"/>
+    <circle cx="866" cy="556" r="4.8"/>
+    <circle cx="1184" cy="564" r="4.5"/>
+  </g>
+
+  <g fill="none" stroke="#c39a4c" stroke-width="1.4" opacity="0.48">
+    <circle cx="254" cy="462" r="15"/>
+    <circle cx="590" cy="410" r="22"/>
+    <circle cx="982" cy="390" r="17"/>
+    <circle cx="1348" cy="448" r="15"/>
+  </g>
+
+  <g transform="translate(1400 132)" stroke="#2d4838" fill="none" opacity="0.58">
+    <circle r="42" stroke-width="1.2"/>
+    <circle r="28" stroke-width="0.8"/>
+    <path d="M 0 -42 L 0 42 M -42 0 L 42 0" stroke-width="0.8"/>
+    <path d="M 0 -36 L 6 0 L 0 36 L -6 0 Z" fill="#2d4838" stroke="none" opacity="0.9"/>
+    <path d="M -24 -24 L 24 24 M -24 24 L 24 -24" stroke-width="0.55" opacity="0.55"/>
+  </g>
+
+  <g fill="none" stroke="#b7a686" opacity="0.34">
+    <path stroke-width="1" d="M 80 122 Q 160 96 248 112"/>
+    <path stroke-width="1" d="M 1276 774 Q 1370 736 1490 754"/>
+    <path stroke-width="0.9" d="M 123 758 Q 190 720 284 736"/>
+  </g>
+  </g>
+</svg>
