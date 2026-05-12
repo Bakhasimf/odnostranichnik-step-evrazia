@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Материал программы</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=8" />
+  </head>
+  <body class="page-sub">
+    <header class="site-header site-header--sub" id="siteHeader">
+      <div class="container nav-wrap">
+        <a href="index.html" class="brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" width="28" height="28">
+              <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.2" />
+              <path
+                d="M2 20 C 10 10, 30 10, 38 20 M2 20 C 10 30, 30 30, 38 20 M20 2 L20 38"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1"
+              />
+            </svg>
+          </span>
+          <span class="brand-text">
+            <span class="brand-title">Степная Евразия</span>
+          </span>
+        </a>
+        <nav class="nav nav--sub" aria-label="Навигация">
+          <a href="index.html">Главная</a>
+          <a href="index.html#news">Новости</a>
+          <a href="index.html#directions">Направления</a>
+          <a href="index.html#publications">Публикации</a>
+        </nav>
+      </div>
+    </header>
+    <main class="sub-main">
+      <div class="container">
+        <div id="detailRoot" class="detail-root reveal is-visible"></div>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-bottom">
+        <p>
+          © 2026–2034 Программа «История и культура народов Степной Евразии».
+          <span class="footer-credit">Академия наук Республики Татарстан</span>
+        </p>
+      </div>
+    </footer>
+    <script src="site-data.js?v=1"></script>
+    <script src="detail-page.js?v=1"></script>
+  </body>
+</html>
