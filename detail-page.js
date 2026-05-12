@@ -118,7 +118,7 @@
     var ev2 = siteFindEvent(p.eventId);
     var sec2 = ev2 ? data.sections[ev2.sectionId] : null;
     var pubMeta =
-      esc(p.type) +
+      esc(p.typeLabel || p.type) +
       (ev2
         ? ' · мероприятие: <a href="' +
           esc(siteEventHref(ev2.id)) +

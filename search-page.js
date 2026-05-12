@@ -46,13 +46,13 @@
         });
     });
     data.publications.forEach(function (p) {
-      var blob = norm(p.title + " " + p.excerpt + " " + p.type);
+      var blob = norm(p.title + " " + p.excerpt + " " + p.type + " " + (p.typeLabel || ""));
       if (blob.indexOf(q) !== -1)
         hits.push({
           kind: "pub",
           title: p.title,
           href: "detail.html?kind=publication&id=" + encodeURIComponent(p.id),
-          line: p.type,
+          line: (p.typeLabel || p.type),
         });
     });
     data.partners.forEach(function (p) {

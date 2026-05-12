@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=13" />
+    <link rel="stylesheet" href="styles.css?v=20" />
   </head>
   <body class="page-sub" data-list-page="publications">
     <header class="site-header site-header--sub" id="siteHeader">
@@ -20,17 +20,41 @@
       </div>
     </header>
     <main class="sub-main">
-      <div class="container">
-        <h1 class="detail-title" style="margin-bottom:32px">Все публикации и материалы</h1>
-        <div id="listRoot" class="list-stack"></div>
-      </div>
+      <section class="section page-list-pubs-section">
+        <div class="container page-list-pubs">
+          <h1 class="detail-title" style="margin-bottom:28px">Все публикации и материалы</h1>
+
+          <div class="news-list-search-wrap reveal" role="search">
+            <input
+              type="search"
+              id="pubListSearch"
+              class="news-list-search-input"
+              placeholder="Поиск по названию, описанию, типу…"
+              autocomplete="off"
+              aria-label="Поиск по публикациям"
+            />
+          </div>
+
+          <div class="filters pub-filters reveal" role="tablist" aria-label="Фильтр публикаций">
+            <button type="button" class="filter is-active" data-filter="all">Все</button>
+            <button type="button" class="filter" data-filter="Монография">Монографии</button>
+            <button type="button" class="filter" data-filter="Статья">Статьи</button>
+            <button type="button" class="filter" data-filter="Сборник">Сборники</button>
+            <button type="button" class="filter" data-filter="Журнал">Журналы</button>
+            <button type="button" class="filter" data-filter="Отчет">Отчеты</button>
+            <button type="button" class="filter" data-filter="Видео">Видео</button>
+          </div>
+
+          <div id="listRoot"></div>
+        </div>
+      </section>
     </main>
     <footer class="site-footer">
       <div class="container footer-bottom">
-        <p>© 2026–2034 Программа «История и культура народов Степной Евразии». <span class="footer-credit">Академия наук Республики Татарстан</span></p>
+        <p>© Академия наук Республики Татарстан, 2026. Все права защищены. <span class="footer-credit"></span></p>
       </div>
     </footer>
-    <script src="site-data.js?v=1"></script>
-    <script src="list-all.js?v=2"></script>
+    <script src="site-data.js?v=2"></script>
+    <script src="list-all.js?v=5"></script>
   </body>
 </html>

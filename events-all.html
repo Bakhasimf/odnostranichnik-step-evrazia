@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=8" />
+    <link rel="stylesheet" href="styles.css?v=21" />
   </head>
   <body class="page-sub" data-list-page="events">
     <header class="site-header site-header--sub" id="siteHeader">
@@ -20,17 +20,29 @@
       </div>
     </header>
     <main class="sub-main">
-      <div class="container">
-        <h1 class="detail-title" style="margin-bottom:32px">Все мероприятия программы</h1>
-        <div id="listRoot" class="list-stack"></div>
-      </div>
+      <section class="section page-list-events">
+        <div class="container">
+          <h1 class="detail-title" style="margin-bottom:28px">Все мероприятия программы</h1>
+          <div class="news-list-search-wrap reveal" role="search">
+            <input
+              type="search"
+              id="eventsListSearch"
+              class="news-list-search-input"
+              placeholder="Поиск по мероприятиям и направлениям…"
+              autocomplete="off"
+              aria-label="Поиск по мероприятиям программы"
+            />
+          </div>
+          <div id="listRoot"></div>
+        </div>
+      </section>
     </main>
     <footer class="site-footer">
       <div class="container footer-bottom">
-        <p>© 2026–2034 Программа «История и культура народов Степной Евразии». <span class="footer-credit">Академия наук Республики Татарстан</span></p>
+        <p>© Академия наук Республики Татарстан, 2026. Все права защищены. <span class="footer-credit"></span></p>
       </div>
     </footer>
-    <script src="site-data.js?v=1"></script>
-    <script src="list-all.js?v=1"></script>
+    <script src="site-data.js?v=2"></script>
+    <script src="list-all.js?v=7"></script>
   </body>
 </html>

@@ -127,8 +127,6 @@
   });
 
   var filters = document.querySelectorAll(".pub-filters .filter");
-  var pubTextBox = document.getElementById("pubSectionText");
-  var pubVidBox = document.getElementById("pubSectionVideo");
   var pubCards = document.querySelectorAll("#pubGrid .pub-card");
 
   filters.forEach(function (btn) {
@@ -140,22 +138,12 @@
       var val = btn.getAttribute("data-filter");
 
       if (val === "all") {
-        if (pubTextBox) pubTextBox.style.display = "";
-        if (pubVidBox) pubVidBox.style.display = "";
         pubCards.forEach(function (card) {
           card.classList.remove("is-hidden");
         });
         return;
       }
 
-      if (val === "Видео") {
-        if (pubTextBox) pubTextBox.style.display = "none";
-        if (pubVidBox) pubVidBox.style.display = "";
-        return;
-      }
-
-      if (pubTextBox) pubTextBox.style.display = "";
-      if (pubVidBox) pubVidBox.style.display = "none";
       pubCards.forEach(function (card) {
         var match = card.getAttribute("data-type") === val;
         card.classList.toggle("is-hidden", !match);

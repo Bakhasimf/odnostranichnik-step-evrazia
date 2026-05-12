@@ -8,92 +8,546 @@
 
   function esc(s) {
     var d = document.createElement("div");
-    d.textContent = s;
+    d.textContent = s == null ? "" : String(s);
     return d.innerHTML;
   }
 
-  if (page === "news") {
-    root.innerHTML = data.news
-      .map(function (n) {
-        return (
-          '<article class="news-card list-row-card"><div class="news-meta"><span class="news-type">' +
-          esc(n.category) +
-          '</span><time datetime="' +
-          esc(n.dateISO) +
-          '">' +
-          esc(n.dateRu) +
-          '</time></div><h3><a href="detail.html?kind=news&id=' +
-          encodeURIComponent(n.id) +
-          '">' +
-          esc(n.title) +
-          "</a></h3><p>" +
-          esc(n.excerpt) +
-          '</p><a class="pub-link" href="detail.html?kind=news&id=' +
-          encodeURIComponent(n.id) +
-          '">Читать полностью →</a></article>'
-        );
+  function siteSectionHref(sectionId) {
+    return window.siteSectionHref
+      ? window.siteSectionHref(sectionId)
+      : "detail.html?kind=section&id=" + encodeURIComponent(sectionId);
+  }
+
+  function sortedNewsItems(list) {
+    var feat = list.filter(function (n) {
+      return n.featured;
+    });
+    var rest = list.filter(function (n) {
+      return !n.featured;
+    });
+    rest.sort(function (a, b) {
+      return String(b.dateISO || "").localeCompare(String(a.dateISO || ""));
+    });
+    feat.sort(function (a, b) {
+      return String(b.dateISO || "").localeCompare(String(a.dateISO || ""));
+    });
+    return feat.concat(rest);
+  }
+
+  var ANNOUNCEMENT_CATEGORIES = {
+    "Научный семинар": true,
+    "Круглый стол": true,
+    Конференция: true,
+  };
+
+  function newsSearchHaystack(n) {
+    return [n.title, n.excerpt, n.category, n.dateRu, n.dateISO]
+      .filter(function (x) {
+        return x != null && String(x).length;
+      })
+      .join(" ")
+      .toLowerCase();
+  }
+
+  var MONTHS_GEN_RU = [
+    "января",
+    "февраля",
+    "марта",
+    "апреля",
+    "мая",
+    "июня",
+    "июля",
+    "августа",
+    "сентября",
+    "октября",
+    "ноября",
+    "декабря",
+  ];
+
+  function announcementsFromNews(list) {
+    return (list || [])
+      .filter(function (n) {
+        return ANNOUNCEMENT_CATEGORIES[n.category];
+      })
+      .sort(function (a, b) {
+        return String(a.dateISO || "").localeCompare(String(b.dateISO || ""));
+      });
+  }
+
+  function announcementDayMonth(iso) {
+    var parts = String(iso || "").split("-");
+    if (parts.length < 3) {
+      return { day: "—", month: "" };
+    }
+    var d = parseInt(parts[2], 10);
+    var m = parseInt(parts[1], 10) - 1;
+    return {
+      day: String(isNaN(d) ? "—" : d),
+      month: MONTHS_GEN_RU[m] || "",
+    };
+  }
+
+  function renderAnnouncementRowForList(n) {
+    var dm = announcementDayMonth(n.dateISO);
+    var trunc =
+      window.siteTrunc ||
+      function (s, lim) {
+        s = String(s || "");
+        return s.length > lim ? s.slice(0, lim - 1) + "…" : s;
+      };
+    return (
+      '<li class="news-filter-target" data-news-type="' +
+      esc(n.category) +
+      '" data-news-search="' +
+      esc(newsSearchHaystack(n)) +
+      '">' +
+      '<a class="announcement-row-link" href="detail.html?kind=news&id=' +
+      encodeURIComponent(n.id) +
+      '">' +
+      '<div class="announcement-date announcement-date--news">' +
+      "<span>" +
+      esc(dm.day) +
+      "</span>" +
+      "<small>" +
+      esc(dm.month) +
+      "</small>" +
+      "</div>" +
+      '<div class="announcement-body">' +
+      '<p class="announcement-type">' +
+      esc(n.category) +
+      "</p>" +
+      "<h3>" +
+      esc(trunc(n.title, 88)) +
+      "</h3><p>" +
+      esc(trunc(n.excerpt, 130)) +
+      "</p></div></a></li>"
+    );
+  }
+
+  function renderNewsHero(n) {
+    return (
+      '<article class="news-card news-hero news-filter-target" data-news-type="' +
+      esc(n.category) +
+      '" data-news-search="' +
+      esc(newsSearchHaystack(n)) +
+      '">' +
+      '<a class="news-hero-hit" href="detail.html?kind=news&id=' +
+      encodeURIComponent(n.id) +
+      '">' +
+      '<div class="news-hero-bg" aria-hidden="true"></div>' +
+      '<div class="news-hero-inner">' +
+      '<div class="news-meta news-meta--hero">' +
+      '<span class="news-type news-type--hero">' +
+      esc(n.category) +
+      "</span>" +
+      '<time datetime="' +
+      esc(n.dateISO) +
+      '">' +
+      esc(n.dateRu) +
+      "</time></div>" +
+      '<h3 class="news-hero-title">' +
+      esc(n.title) +
+      "</h3>" +
+      '<p class="news-hero-lead">' +
+      esc(n.excerpt) +
+      "</p>" +
+      "</div></a></article>"
+    );
+  }
+
+  function renderNewsSecondary(n) {
+    return (
+      '<article class="news-card news-card--secondary news-filter-target" data-news-type="' +
+      esc(n.category) +
+      '" data-news-search="' +
+      esc(newsSearchHaystack(n)) +
+      '">' +
+      '<a class="news-card-hit" href="detail.html?kind=news&id=' +
+      encodeURIComponent(n.id) +
+      '"></a>' +
+      '<div class="news-meta news-meta--secondary">' +
+      '<span class="news-type news-type--secondary">' +
+      esc(n.category) +
+      "</span>" +
+      '<time datetime="' +
+      esc(n.dateISO) +
+      '">' +
+      esc(n.dateRu) +
+      "</time></div>" +
+      "<h3>" +
+      esc(n.title) +
+      "</h3><p>" +
+      esc(n.excerpt) +
+      "</p></article>"
+    );
+  }
+
+  function applyNewsListVisibility() {
+    var activeBtn = document.querySelector(".page-list-news .news-filters .filter.is-active");
+    var cat = activeBtn ? activeBtn.getAttribute("data-news-filter") : "all";
+    var qEl = document.getElementById("newsListSearch");
+    var q = ((qEl && qEl.value) || "").trim().toLowerCase();
+    var items = document.querySelectorAll(".news-filter-target");
+    var visibleMain = 0;
+
+    items.forEach(function (item) {
+      var inAside = item.closest("#announcementsList");
+      var catOk = cat === "all" || item.getAttribute("data-news-type") === cat;
+      var hay = item.getAttribute("data-news-search") || "";
+      var searchOk = !q || hay.indexOf(q) !== -1;
+      var show = catOk && searchOk;
+      item.classList.toggle("is-hidden", !show);
+      if (show && !inAside) visibleMain++;
+    });
+
+    var emptyMsg = document.getElementById("newsSearchNoResults");
+    if (emptyMsg) emptyMsg.classList.toggle("is-hidden", visibleMain > 0);
+  }
+
+  function bindNewsFilters() {
+    var newsFilterBtns = document.querySelectorAll(".news-filters .filter");
+    var newsFilterItems = document.querySelectorAll(".news-filter-target");
+    if (!newsFilterBtns.length || !newsFilterItems.length) return;
+    newsFilterBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var val = btn.getAttribute("data-news-filter");
+        newsFilterBtns.forEach(function (b) {
+          var active = b === btn;
+          b.classList.toggle("is-active", active);
+          b.setAttribute("aria-selected", String(active));
+        });
+        applyNewsListVisibility();
+      });
+    });
+    var searchEl = document.getElementById("newsListSearch");
+    if (searchEl) {
+      searchEl.addEventListener("input", applyNewsListVisibility);
+      searchEl.addEventListener("search", applyNewsListVisibility);
+    }
+    applyNewsListVisibility();
+  }
+
+  function renderEventTags(tags) {
+    tags = tags || [];
+    return tags
+      .map(function (t) {
+        return "<li>" + esc(t) + "</li>";
       })
       .join("");
+  }
+
+  function eventCardSearchHaystack(e, sectionLabel) {
+    sectionLabel = (sectionLabel || "").replace(/\u00a0/g, " ");
+    return [e.title, e.excerpt, e.years, (e.tags || []).join(" "), sectionLabel]
+      .filter(function (x) {
+        return x != null && String(x).length;
+      })
+      .join(" ")
+      .toLowerCase();
+  }
+
+  function renderEventCard(e, sectionLabel) {
+    var hay = eventCardSearchHaystack(e, sectionLabel);
+    return (
+      '<a class="research-card research-card--grid event-filter-target" href="detail.html?kind=event&id=' +
+      encodeURIComponent(e.id) +
+      '" data-event-search="' +
+      esc(hay) +
+      '">' +
+      '<span class="research-years">' +
+      esc(e.years) +
+      "</span>" +
+      "<h3>" +
+      esc(e.title) +
+      "</h3>" +
+      "<p>" +
+      esc(e.excerpt) +
+      "</p>" +
+      '<ul class="tags">' +
+      renderEventTags(e.tags) +
+      "</ul></a>"
+    );
+  }
+
+  var EVENT_SECTION_UI = [
+    { panel: "t1", tabIdx: "I.", label: "Археология и\u00a0материальная культура" },
+    {
+      panel: "t2",
+      tabIdx: "II.",
+      label: "История государственности и\u00a0социально-политические процессы",
+    },
+    { panel: "t3", tabIdx: "III.", label: "Язык, литература и\u00a0духовная культура" },
+    {
+      panel: "t4",
+      tabIdx: "IV.",
+      label: "Энциклопедии и\u00a0научно-справочное наследие",
+    },
+    { panel: "t5", tabIdx: "V.", label: "Публикации и\u00a0цифровое наследие" },
+  ];
+
+  function renderEventsFullPage(events) {
+    function renderTabButton(s, i) {
+      var active = i === 0;
+      return (
+        '<button type="button" class="tab' +
+        (active ? " is-active" : "") +
+        '" role="tab" aria-selected="' +
+        (active ? "true" : "false") +
+        '" data-tab="' +
+        esc(s.panel) +
+        '">' +
+        '<span class="tab-index">' +
+        esc(s.tabIdx) +
+        "</span>" +
+        '<span class="tab-label">' +
+        esc(s.label) +
+        "</span></button>"
+      );
+    }
+    var tabBtns =
+      EVENT_SECTION_UI.slice(0, 3)
+        .map(function (s, i) {
+          return renderTabButton(s, i);
+        })
+        .join("") +
+      '<div class="tabs-track-row2">' +
+      EVENT_SECTION_UI.slice(3)
+        .map(function (s, i) {
+          return renderTabButton(s, i + 3);
+        })
+        .join("") +
+      "</div>";
+
+    var panels = EVENT_SECTION_UI.map(function (s, i) {
+      var active = i === 0;
+      var inSec = events.filter(function (ev) {
+        return ev.sectionId === s.panel;
+      });
+      var grid =
+        inSec
+          .map(function (ev) {
+            return renderEventCard(ev, s.label);
+          })
+          .join("") ||
+        '<p class="detail-muted" style="margin:0">В этом разделе пока нет карточек мероприятий.</p>';
+      return (
+        '<div class="tab-panel' +
+        (active ? " is-active" : "") +
+        '" role="tabpanel" data-panel="' +
+        esc(s.panel) +
+        '">' +
+        '<div class="events-all-grid">' +
+        grid +
+        "</div></div>"
+      );
+    }).join("");
+
+    return (
+      '<div class="tabs reveal events-all-tabs" role="tablist" aria-label="Направления исследований">' +
+      '<div class="tabs-track">' +
+      tabBtns +
+      "</div></div>" +
+      panels
+    );
+  }
+
+  function bindDirectionsTabs(scope) {
+    var tabs = scope.querySelectorAll(".events-all-tabs .tab");
+    var panels = scope.querySelectorAll(".tab-panel");
+    if (!tabs.length || !panels.length) return;
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        var target = tab.dataset.tab;
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.classList.toggle("is-active", on);
+          t.setAttribute("aria-selected", String(on));
+        });
+        panels.forEach(function (p) {
+          p.classList.toggle("is-active", p.dataset.panel === target);
+        });
+        applyEventsListVisibility();
+      });
+    });
+  }
+
+  function applyEventsListVisibility() {
+    var qEl = document.getElementById("eventsListSearch");
+    var qTrim = ((qEl && qEl.value) || "").trim().toLowerCase();
+    var cards = document.querySelectorAll(".page-list-events #listRoot .event-filter-target");
+    cards.forEach(function (card) {
+      var hay = card.getAttribute("data-event-search") || "";
+      var ok = !qTrim || hay.indexOf(qTrim) !== -1;
+      card.classList.toggle("is-hidden", !ok);
+    });
+  }
+
+  function bindEventsSearch() {
+    var searchEl = document.getElementById("eventsListSearch");
+    if (!searchEl || !document.getElementById("listRoot") || !document.querySelector(".page-list-events"))
+      return;
+    searchEl.addEventListener("input", applyEventsListVisibility);
+    searchEl.addEventListener("search", applyEventsListVisibility);
+    applyEventsListVisibility();
+  }
+
+  function publicationDisplayType(p) {
+    return p.typeLabel || p.type;
+  }
+
+  function publicationSearchHaystack(p, ev, sec) {
+    return [
+      p.title,
+      p.excerpt,
+      publicationDisplayType(p),
+      p.type || "",
+      ev ? ev.title : "",
+      sec ? sec.title : "",
+    ]
+      .filter(function (x) {
+        return x != null && String(x).length;
+      })
+      .join(" ")
+      .toLowerCase();
+  }
+
+  function renderPublicationTextCard(p) {
+    var ev = window.siteFindEvent && p.eventId ? window.siteFindEvent(p.eventId) : null;
+    var evTie = "";
+    var secTie = "";
+    var sec = null;
+    if (ev) {
+      evTie =
+        '<div class="pub-tie"><span class="pub-tie-label">Мероприятие:</span> <a href="detail.html?kind=event&id=' +
+        encodeURIComponent(ev.id) +
+        '">' +
+        esc(window.siteTrunc(ev.title, 28)) +
+        "</a></div>";
+      sec = data.sections && ev.sectionId ? data.sections[ev.sectionId] : null;
+      if (sec) {
+        secTie =
+          '<div class="pub-tie"><span class="pub-tie-label">Раздел:</span> <a href="' +
+          esc(siteSectionHref(sec.id)) +
+          '">' +
+          esc(window.siteTrunc(sec.title, 42)) +
+          "</a></div>";
+      }
+    }
+    var hay = publicationSearchHaystack(p, ev, sec);
+    return (
+      '<article class="pub-card pub-filter-target" data-type="' +
+      esc(p.type) +
+      '" data-pub-search="' +
+      esc(hay) +
+      '">' +
+      '<a class="pub-card-hit" href="detail.html?kind=publication&id=' +
+      encodeURIComponent(p.id) +
+      '"></a>' +
+      '<span class="pub-type">' +
+      esc(publicationDisplayType(p)) +
+      "</span>" +
+      evTie +
+      secTie +
+      "<h3>" +
+      esc(p.title) +
+      "</h3><p>" +
+      esc(p.excerpt) +
+      '</p><span class="pub-link">Подробнее →</span></article>'
+    );
+  }
+
+  function applyPubListVisibility() {
+    var activeBtn = document.querySelector(".page-list-pubs .pub-filters .filter.is-active");
+    var val = activeBtn ? activeBtn.getAttribute("data-filter") : "all";
+    var qEl = document.getElementById("pubListSearch");
+    var q = ((qEl && qEl.value) || "").trim().toLowerCase();
+    var pubCards = document.querySelectorAll("#pubAllGrid .pub-filter-target");
+    pubCards.forEach(function (card) {
+      var typeOk = val === "all" || card.getAttribute("data-type") === val;
+      var hay = card.getAttribute("data-pub-search") || "";
+      var searchOk = !q || hay.indexOf(q) !== -1;
+      var show = typeOk && searchOk;
+      card.classList.toggle("is-hidden", !show);
+    });
+  }
+
+  function bindPubListFilters() {
+    var filters = document.querySelectorAll(".page-list-pubs .pub-filters .filter");
+    if (!filters.length) return;
+
+    filters.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        filters.forEach(function (b) {
+          b.classList.remove("is-active");
+        });
+        btn.classList.add("is-active");
+        applyPubListVisibility();
+      });
+    });
+    var searchEl = document.getElementById("pubListSearch");
+    if (searchEl) {
+      searchEl.addEventListener("input", applyPubListVisibility);
+      searchEl.addEventListener("search", applyPubListVisibility);
+    }
+    applyPubListVisibility();
+  }
+
+  /* ---------- Страницы ---------- */
+
+  if (page === "news") {
+    var annListEl = document.getElementById("announcementsList");
+    if (annListEl) {
+      var annItems = announcementsFromNews(data.news || []);
+      annListEl.innerHTML =
+        annItems.length > 0
+          ? annItems.map(renderAnnouncementRowForList).join("")
+          : '<li class="announcements-empty" role="presentation"><p class="detail-muted" style="margin:0;padding:10px 0 4px;font-size:14px">Нет запланированных анонсов в календаре.</p></li>';
+    }
+
+    var orderNews = sortedNewsItems(data.news.slice());
+    var heroIdx = orderNews.findIndex(function (n) {
+      return n.featured;
+    });
+    var parts = [];
+    if (heroIdx !== -1) {
+      parts.push(renderNewsHero(orderNews[heroIdx]));
+      parts.push('<div class="news-secondary-grid news-all-grid">');
+      orderNews.forEach(function (n, idx) {
+        if (idx !== heroIdx) parts.push(renderNewsSecondary(n));
+      });
+      parts.push("</div>");
+    } else {
+      parts.push('<div class="news-secondary-grid news-all-grid">');
+      orderNews.forEach(function (n) {
+        parts.push(renderNewsSecondary(n));
+      });
+      parts.push("</div>");
+    }
+    root.innerHTML =
+      '<p id="newsSearchNoResults" class="detail-muted news-search-empty is-hidden" role="status">' +
+      "Ничего не найдено. Измените запрос или фильтр." +
+      "</p>" +
+      '<div class="news-feed news-all-feed">' +
+      parts.join("") +
+      "</div>";
+    bindNewsFilters();
     return;
   }
 
   if (page === "events") {
-    root.innerHTML = data.events
-      .map(function (e) {
-        var sec = data.sections[e.sectionId];
-        return (
-          '<article class="research-card list-row-card" style="display:block"><p class="research-years">' +
-          esc(e.years) +
-          '</p><p class="detail-muted" style="margin:0 0 8px"><a href="' +
-          esc(siteSectionHref(e.sectionId)) +
-          '">' +
-          esc(siteTrunc(sec.title, 42)) +
-          '</a></p><h3><a href="detail.html?kind=event&id=' +
-          encodeURIComponent(e.id) +
-          '">' +
-          esc(e.title) +
-          "</a></h3><p>" +
-          esc(e.excerpt) +
-          '</p><a class="pub-link" href="detail.html?kind=event&id=' +
-          encodeURIComponent(e.id) +
-          '">Подробнее →</a></article>'
-        );
-      })
-      .join("");
+    root.innerHTML = renderEventsFullPage(data.events || []);
+    bindDirectionsTabs(root);
+    bindEventsSearch();
     return;
   }
 
   if (page === "publications") {
-    root.innerHTML = data.publications
-      .map(function (p) {
-        var ev = window.siteFindEvent && p.eventId ? window.siteFindEvent(p.eventId) : null;
-        var tie = "";
-        if (ev) {
-          tie =
-            '<div class="pub-tie"><span class="pub-tie-label">Мероприятие:</span> <a href="detail.html?kind=event&id=' +
-            encodeURIComponent(ev.id) +
-            '">' +
-            esc(window.siteTrunc(ev.title, 28)) +
-            "</a></div>";
-        }
-        return (
-          '<article class="pub-card list-row-card">' +
-          '<span class="pub-type">' +
-          esc(p.type) +
-          "</span>" +
-          tie +
-          '<h3><a href="detail.html?kind=publication&id=' +
-          encodeURIComponent(p.id) +
-          '">' +
-          esc(p.title) +
-          "</a></h3><p>" +
-          esc(p.excerpt) +
-          '</p><a class="pub-link" href="detail.html?kind=publication&id=' +
-          encodeURIComponent(p.id) +
-          '">Подробнее →</a></article>'
-        );
-      })
-      .join("");
+    var pubs = data.publications || [];
+    root.innerHTML =
+      '<div class="pub-grid-static" id="pubAllGrid">' +
+      pubs.map(renderPublicationTextCard).join("") +
+      "</div>";
+    bindPubListFilters();
     return;
   }
 

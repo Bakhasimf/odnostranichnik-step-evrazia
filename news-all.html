@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=8" />
+    <link rel="stylesheet" href="styles.css?v=19" />
   </head>
   <body class="page-sub" data-list-page="news">
     <header class="site-header site-header--sub" id="siteHeader">
@@ -20,17 +20,49 @@
       </div>
     </header>
     <main class="sub-main">
-      <div class="container">
-        <h1 class="detail-title" style="margin-bottom:32px">Все новости и анонсы</h1>
-        <div id="listRoot" class="list-stack"></div>
-      </div>
+      <section class="section section-news page-list-news">
+        <div class="container">
+          <h1 class="detail-title" style="margin-bottom:28px">Все новости и анонсы</h1>
+
+          <div class="news-layout page-news-all-layout reveal">
+            <div class="page-news-all-main">
+              <div class="news-list-search-wrap reveal" role="search">
+                <input
+                  type="search"
+                  id="newsListSearch"
+                  class="news-list-search-input"
+                  placeholder="Поиск по новостям и анонсам…"
+                  autocomplete="off"
+                  aria-label="Поиск по новостям и анонсам"
+                />
+              </div>
+              <div class="filters news-filters reveal" role="tablist" aria-label="Фильтр по типу новостей">
+                <button type="button" class="filter is-active" data-news-filter="all" role="tab" aria-selected="true">Все</button>
+                <button type="button" class="filter" data-news-filter="Экспедиции" role="tab" aria-selected="false">Экспедиции</button>
+                <button type="button" class="filter" data-news-filter="Цифровые проекты" role="tab" aria-selected="false">Цифровые проекты</button>
+                <button type="button" class="filter" data-news-filter="Публикации" role="tab" aria-selected="false">Публикации</button>
+                <button type="button" class="filter" data-news-filter="Научный семинар" role="tab" aria-selected="false">Научный семинар</button>
+                <button type="button" class="filter" data-news-filter="Круглый стол" role="tab" aria-selected="false">Круглый стол</button>
+                <button type="button" class="filter" data-news-filter="Конференция" role="tab" aria-selected="false">Конференция</button>
+              </div>
+
+              <div id="listRoot"></div>
+            </div>
+
+            <aside class="announcements-panel announcements-panel--news" aria-label="Ближайшие анонсы">
+              <p class="announcements-kicker announcements-kicker--news">Ближайшие анонсы</p>
+              <ul class="announcements-list announcements-list--news" id="announcementsList" role="list"></ul>
+            </aside>
+          </div>
+        </div>
+      </section>
     </main>
     <footer class="site-footer">
       <div class="container footer-bottom">
-        <p>© 2026–2034 Программа «История и культура народов Степной Евразии». <span class="footer-credit">Академия наук Республики Татарстан</span></p>
+        <p>© Академия наук Республики Татарстан, 2026. Все права защищены. <span class="footer-credit"></span></p>
       </div>
     </footer>
-    <script src="site-data.js?v=1"></script>
-    <script src="list-all.js?v=1"></script>
+    <script src="site-data.js?v=2"></script>
+    <script src="list-all.js?v=5"></script>
   </body>
 </html>
