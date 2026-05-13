@@ -162,9 +162,9 @@
       '" data-news-search="' +
       esc(newsSearchHaystack(n)) +
       '">' +
-      '<a class="news-card-hit" href="detail.html?kind=news&id=' +
+      '<a class="news-card-hit news-card-hit--block" href="detail.html?kind=news&id=' +
       encodeURIComponent(n.id) +
-      '"></a>' +
+      '">' +
       '<div class="news-meta news-meta--secondary">' +
       '<span class="news-type news-type--secondary">' +
       esc(n.category) +
@@ -178,7 +178,7 @@
       esc(n.title) +
       "</h3><p>" +
       esc(n.excerpt) +
-      "</p></article>"
+      "</p></a></article>"
     );
   }
 
@@ -601,22 +601,30 @@
   }
 
   if (page === "partners") {
+    root.className = "partners-grid";
     root.innerHTML = data.partners
       .map(function (p) {
-        var logo =
-          '<div class="partner-logo"><img src="' +
-          esc(p.logo) +
-          '" alt="' +
-          esc(p.org) +
-          '" decoding="async" loading="lazy" /></div>';
+        var ini = String(p.initials || (p.org || "").slice(0, 3) || "").trim();
+        if (ini.length) ini = ini.toUpperCase();
+        var logo = p.logo
+          ? '<div class="partner-logo"><img src="' +
+            esc(p.logo) +
+            '" alt="' +
+            esc(p.org) +
+            '" decoding="async" loading="lazy" /></div>'
+          : '<div class="partner-logo partner-logo--initials" aria-hidden="true">' +
+            esc(ini || "?") +
+            "</div>";
         return (
-          '<article class="partner-news-card list-row-card"><div class="partner-card-top">' +
-          logo +
-          '<div><p class="partner-org">' +
-          esc(p.org) +
-          " · " +
+          '<article class="partner-news-card partner-page-card" data-country="' +
           esc(p.country) +
-          '</p><div class="news-meta"><time datetime="' +
+          '"><div class="partner-card-top">' +
+          logo +
+          '<div class="partner-page-card-meta"><p class="partner-org">' +
+          esc(p.org) +
+          '</p><p class="partner-country"><span class="partner-country-label">' +
+          esc(p.country) +
+          '</span></p><div class="news-meta"><time datetime="' +
           esc(p.dateISO) +
           '">' +
           esc(p.dateRu) +
@@ -626,9 +634,9 @@
           esc(p.title) +
           "</a></h3><p>" +
           esc(p.excerpt) +
-          '</p><a class="pub-link" href="detail.html?kind=partner&id=' +
+          '</p><a class="pub-link partner-page-card-link" href="detail.html?kind=partner&id=' +
           encodeURIComponent(p.id) +
-          '">Подробнее →</a></article>'
+          '">Подробнее</a></article>'
         );
       })
       .join("");
