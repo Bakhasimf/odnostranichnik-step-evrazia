@@ -3,18 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Снимает «залипание» HTML в некоторых превью (Simple Browser и т.п.): убери на продакшене, если не нужно -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
     <meta
       name="description"
-      content="Международная научная программа «История и культура народов Степной Евразии» 2026–2034 гг. — изучение историко-культурного наследия, трансевразийских связей и цивилизационных процессов."
+      content="Международная программа «История и культура народов Степной Евразии» (2026–2034, Казань): степная цивилизация, Улус Джучи и золотоордынское наследие, язык и источники, археология и международная ГИС; АН Республики Татарстан."
     />
-    <title>История и культура народов Степной Евразии — международная научная программа 2026–2034</title>
+    <title>История и культура народов Степной Евразии — международная программа 2026–2034</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Spectral:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=13" />
+    <link rel="stylesheet" href="styles.css?v=21" />
   </head>
   <body>
     <!-- ============ ВЕРХНЕЕ МЕНЮ ============ -->
@@ -59,73 +62,127 @@
 
     <main>
       <!-- ============ 1. HERO ============ -->
-      <section class="hero" id="hero">
-        <div class="container hero-inner">
-          <div class="hero-layout">
-            <div class="hero-copy">
-              <p class="eyebrow reveal">Международная научная программа · 2026–2034</p>
-              <h1 class="hero-title reveal">
-                История и&nbsp;культура народов<br />
-                <span class="accent">Степной Евразии</span>
+      <section class="hero hero--program" id="hero">
+        <div class="hero--aurora" aria-hidden="true"></div>
+        <div class="hero--grid-deco" aria-hidden="true">
+          <svg class="hero--horizon" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path
+              d="M0,78 C180,62 340,92 520,74 C720,54 880,88 1060,70 L1200,60 L1200,120 L0,120 Z"
+              fill="url(#heroHillGrad)"
+              opacity="0.35"
+            />
+            <defs>
+              <linearGradient id="heroHillGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#c9973d" />
+                <stop offset="100%" stop-color="#0f1a20" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <div class="container hero--wrap">
+          <header class="hero--head reveal">
+            <span class="hero--badge">Международная программа</span>
+            <span class="hero--head-sep" aria-hidden="true"></span>
+            <span class="hero--head-meta">2026–2034</span>
+          </header>
+
+          <div class="hero--grid">
+            <div class="hero--column hero--column-main">
+              <h1 class="hero--title reveal">
+                <span class="hero--title-line">«История и&nbsp;культура народов</span>
+                <span class="hero--title-accent">Степной Евразии»</span>
               </h1>
-              <p class="hero-sub reveal">
-                Международная научная программа 2026–2034&nbsp;гг. по&nbsp;изучению
-                историко-культурного наследия, трансевразийских связей и&nbsp;цивилизационных
-                процессов на&nbsp;пространстве Степной Евразии.
-              </p>
-              <p class="hero-lead reveal">
-                Программа объединяет фундаментальные и&nbsp;прикладные исследования
-                в&nbsp;области археологии, истории, языка, культуры и&nbsp;цифрового
-                наследия. Ее&nbsp;задача — формирование целостного научного представления
-                о&nbsp;развитии народов и&nbsp;государств Степной Евразии,
-                их&nbsp;взаимодействии, культурной преемственности и&nbsp;роли
-                в&nbsp;мировой истории.
+
+              <p class="hero--lede reveal">
+                Долгосрочный план работ — исследовать
+                <strong>евразийскую степную цивилизацию</strong>:  от&nbsp;чингизидских политий
+                и&nbsp;<strong>Улуса Джучи</strong> до&nbsp;татарских ханств, городов
+                на&nbsp;трансконтинентальных путях, архивов, топонимики, языка
+                письменного наследия и&nbsp;<strong>международной ГИС</strong> с&nbsp;участием
+                специалистов <strong>Центральной Азии</strong> и&nbsp;<strong>Восточной Европы</strong>.
               </p>
 
-              <ul class="hero-badges reveal" role="list">
-                <li><span>01</span>Междисциплинарные исследования</li>
-                <li><span>02</span>Историко-культурное наследие</li>
-                <li><span>03</span>Международное научное сотрудничество</li>
-              </ul>
-            </div>
+              <p class="hero--why reveal">
+                Степная Евразия — место трансфера культур и&nbsp;технологий и&nbsp;«колыбель»
+                народов уникального языкового пространства; реализация программы усиливает
+                российскую науку, межкультурный диалог и&nbsp;базу для
+                <strong>достоверного знания о&nbsp;прошлом</strong>.
+              </p>
 
-            <aside class="hero-aside reveal" aria-label="Исследовательский контур программы">
-              <div class="hero-panel">
-                <p class="hero-panel-kicker">Исследовательский контур</p>
-                <ul class="hero-panel-list" role="list">
-                  <li>
-                    <span class="hero-panel-index">01</span>
-                    <div>
-                      <strong>Пространство</strong>
-                      <p>От Поволжья и Прикаспия до Южной Сибири и трансевразийских маршрутов.</p>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="hero-panel-index">02</span>
-                    <div>
-                      <strong>Источники</strong>
-                      <p>Археологические комплексы, письменные памятники, языковые и картографические данные.</p>
-                    </div>
-                  </li>
-                  <li>
-                    <span class="hero-panel-index">03</span>
-                    <div>
-                      <strong>Репрезентация</strong>
-                      <p>Публикации, цифровые архивы, видеоматериалы и научная визуализация результатов.</p>
-                    </div>
-                  </li>
-                </ul>
+              <div class="hero--mission reveal" role="list">
+                <article class="hero--mission-card" role="listitem">
+                  <span class="hero--mission-idx" aria-hidden="true">I</span>
+                  <div class="hero--mission-body">
+                    <h2 class="hero--mission-h">Модель культур степи</h2>
+                    <p>
+                      Собрать научную модель развития культур Степной Евразии
+                      в&nbsp;пространстве и&nbsp;глубокой хронологии — как в&nbsp;миссии программы.
+                    </p>
+                  </div>
+                </article>
+                <article class="hero--mission-card" role="listitem">
+                  <span class="hero--mission-idx" aria-hidden="true">II</span>
+                  <div class="hero--mission-body">
+                    <h2 class="hero--mission-h">Преемственность и&nbsp;магистрали</h2>
+                    <p>
+                      Проследить наследие в&nbsp;средневековье и&nbsp;новое время: государственность,
+                      города, влияние <strong>трансевразийских торговых магистралей</strong>.
+                    </p>
+                  </div>
+                </article>
+                <article class="hero--mission-card" role="listitem">
+                  <span class="hero--mission-idx" aria-hidden="true">III</span>
+                  <div class="hero--mission-body">
+                    <h2 class="hero--mission-h">Цивилизация Великой степи</h2>
+                    <p>
+                      Теория и&nbsp;источники: общество, религии, письменность и&nbsp;литература,
+                      этнокультурная динамика степного мира.
+                    </p>
+                  </div>
+                </article>
               </div>
 
-              <div class="hero-note">
-                <p class="hero-note-label">Гуманитарная инициатива</p>
-                <p class="hero-note-text">
-                  Академический ресурс долгосрочной программы, ориентированной
-                  на&nbsp;системное изучение историко-культурного наследия Степной Евразии.
+              <div class="hero--cta reveal">
+                <a class="btn btn-primary btn-small hero--cta-primary" href="#directions">Направления программы</a>
+              </div>
+            </div>
+
+            <aside class="hero--column hero--column-side reveal" aria-label="Сводные параметры из программы">
+              <div class="hero--glass">
+                <div class="hero--kv">
+                  <span class="hero--kv-label">Срок</span>
+                  <span class="hero--kv-value">2026–2034</span>
+                </div>
+                <div class="hero--kv">
+                  <span class="hero--kv-label">Исполнитель</span>
+                  <span class="hero--kv-value hero--kv-value-tight">Академия наук Республики Татарстан</span>
+                </div>
+              </div>
+
+              <div class="hero--spotlight">
+                <p class="hero--spotlight-k">Содержательный контур</p>
+                <p class="hero--spotlight-text">
+                  Тюрко-татарское наследие, Золотая Орда, Улус Джучи, татарские ханства,
+                  средневековая государственность, трансконтинентальные торговые маршруты,
+                  Великий Шёлковый путь, культурный трансфер, археологическое наследие,
+                  этнокультурные связи, письменная традиция, духовная культура, средневековые города,
+                  межкультурный диалог.
                 </p>
               </div>
             </aside>
           </div>
+
+          <figure class="hero--steppe-map" aria-hidden="true">
+            <img
+              src="assets/hero-steppe-map.png"
+              alt=""
+              width="960"
+              height="480"
+              decoding="async"
+              loading="lazy"
+            />
+          </figure>
         </div>
       </section>
 
@@ -364,7 +421,7 @@
                     <ul class="tags"><li>Улус Джучи</li><li>Золотая Орда</li><li>история</li></ul>
                   </a>
                   <a class="research-card research-card--slide" href="detail.html?kind=event&amp;id=e-t2-4">
-                    <span class="research-years">2028–2033</span>
+                    <span class="research-years">2029–2034</span>
                     <h3>История татарских ханств</h3>
                     <p>Изучение татарских ханств раскрывает особенности политической организации, межгосударственных отношений и&nbsp;исторической преемственности.</p>
                     <ul class="tags"><li>ханства</li><li>государственность</li><li>политические структуры</li></ul>
@@ -417,7 +474,7 @@
                     <ul class="tags"><li>духовная культура</li><li>литература</li><li>письменность</li></ul>
                   </a>
                   <a class="research-card research-card--slide" href="detail.html?kind=event&amp;id=e-t3-5">
-                    <span class="research-years">2027–2033</span>
+                    <span class="research-years">2028–2034</span>
                     <h3>Этнокультурные связи народов Степной Евразии</h3>
                     <p>Это направление посвящено взаимовлияниям культур, трансферу образов и&nbsp;культурной коммуникации на&nbsp;протяжении веков.</p>
                     <ul class="tags"><li>культурные связи</li><li>взаимовлияния</li><li>гуманитаристика</li></ul>
@@ -440,7 +497,7 @@
                     <ul class="tags"><li>энциклопедии</li><li>словари</li><li>популяризация</li></ul>
                   </a>
                   <a class="research-card research-card--slide" href="detail.html?kind=event&amp;id=e-t4-2">
-                    <span class="research-years">2027–2033</span>
+                    <span class="research-years">2028–2034</span>
                     <h3>Научные справочники и&nbsp;корпусные издания</h3>
                     <p>Системные справочники по памятникам, персоналиям и терминологии обеспечивают единую точку входа в материалы программы.</p>
                     <ul class="tags"><li>справочники</li><li>корпуса</li><li>индексация</li></ul>
@@ -475,7 +532,7 @@
                     <ul class="tags"><li>монографии</li><li>научные труды</li><li>публикации</li></ul>
                   </a>
                   <a class="research-card research-card--slide" href="detail.html?kind=event&amp;id=e-t5-2">
-                    <span class="research-years">2026–2033</span>
+                    <span class="research-years">2026–2034</span>
                     <h3>Сборники и&nbsp;журналы</h3>
                     <p>Научные материалы программы получают развитие в&nbsp;периодических и&nbsp;серийных изданиях гуманитарного профиля.</p>
                     <ul class="tags"><li>сборники</li><li>журналы</li><li>академические издания</li></ul>
@@ -487,7 +544,7 @@
                     <ul class="tags"><li>архивы</li><li>базы данных</li><li>цифровое хранение</li></ul>
                   </a>
                   <a class="research-card research-card--slide" href="detail.html?kind=event&amp;id=e-t5-4">
-                    <span class="research-years">2028–2033</span>
+                    <span class="research-years">2029–2034</span>
                     <h3>Геоинформационные и&nbsp;визуальные решения</h3>
                     <p>Цифровые инструменты позволяют наглядно представлять памятники, маршруты, объекты наследия и&nbsp;исследовательские данные.</p>
                     <ul class="tags"><li>ГИС</li><li>визуализация</li><li>картография</li></ul>

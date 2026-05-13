@@ -201,7 +201,7 @@
     });
 
     var emptyMsg = document.getElementById("newsSearchNoResults");
-    if (emptyMsg) emptyMsg.classList.toggle("is-hidden", visibleMain > 0);
+    if (emptyMsg) emptyMsg.classList.toggle("is-hidden", visibleMain > 0 || !q.length);
   }
 
   function bindNewsFilters() {
@@ -286,8 +286,21 @@
   ];
 
   function renderEventsFullPage(events) {
+    var showAllDefault = true;
+
+    function renderAllSectionsTab(isActive) {
+      return (
+        '<button type="button" class="tab tab--all' +
+        (isActive ? " is-active" : "") +
+        '" role="tab" aria-selected="' +
+        (isActive ? "true" : "false") +
+        '" data-tab="all">' +
+        '<span class="tab-label tab-label--all">Все разделы</span></button>'
+      );
+    }
+
     function renderTabButton(s, i) {
-      var active = i === 0;
+      var active = !showAllDefault && i === 0;
       return (
         '<button type="button" class="tab' +
         (active ? " is-active" : "") +
@@ -305,6 +318,9 @@
       );
     }
     var tabBtns =
+      '<div class="tabs-track-row-all">' +
+      renderAllSectionsTab(showAllDefault) +
+      "</div>" +
       EVENT_SECTION_UI.slice(0, 3)
         .map(function (s, i) {
           return renderTabButton(s, i);
@@ -319,7 +335,7 @@
       "</div>";
 
     var panels = EVENT_SECTION_UI.map(function (s, i) {
-      var active = i === 0;
+      var active = !showAllDefault && i === 0;
       var inSec = events.filter(function (ev) {
         return ev.sectionId === s.panel;
       });
@@ -336,6 +352,9 @@
         '" role="tabpanel" data-panel="' +
         esc(s.panel) +
         '">' +
+        '<h2 class="events-all-section-heading">' +
+        esc(s.label) +
+        "</h2>" +
         '<div class="events-all-grid">' +
         grid +
         "</div></div>"
@@ -343,7 +362,7 @@
     }).join("");
 
     return (
-      '<div class="tabs reveal events-all-tabs" role="tablist" aria-label="Направления исследований">' +
+      '<div class="tabs reveal events-all-tabs" role="tablist" aria-label="Обзор мероприятий по разделам">' +
       '<div class="tabs-track">' +
       tabBtns +
       "</div></div>" +
@@ -357,14 +376,23 @@
     if (!tabs.length || !panels.length) return;
     tabs.forEach(function (tab) {
       tab.addEventListener("click", function () {
-        var target = tab.dataset.tab;
+        var target = tab.getAttribute("data-tab");
+        var showAll = target === "all";
+        if (showAll) {
+          scope.classList.add("events-view-all");
+          panels.forEach(function (p) {
+            p.classList.remove("is-active");
+          });
+        } else {
+          scope.classList.remove("events-view-all");
+          panels.forEach(function (p) {
+            p.classList.toggle("is-active", p.getAttribute("data-panel") === target);
+          });
+        }
         tabs.forEach(function (t) {
           var on = t === tab;
           t.classList.toggle("is-active", on);
           t.setAttribute("aria-selected", String(on));
-        });
-        panels.forEach(function (p) {
-          p.classList.toggle("is-active", p.dataset.panel === target);
         });
         applyEventsListVisibility();
       });
@@ -380,6 +408,25 @@
       var ok = !qTrim || hay.indexOf(qTrim) !== -1;
       card.classList.toggle("is-hidden", !ok);
     });
+    var rootEl = document.querySelector(".page-list-events #listRoot");
+    var viewAll = rootEl && rootEl.classList.contains("events-view-all");
+    var visibleCount = 0;
+    if (viewAll) {
+      rootEl.querySelectorAll(".event-filter-target").forEach(function (card) {
+        if (!card.classList.contains("is-hidden")) visibleCount++;
+      });
+    } else if (rootEl) {
+      var activePanel = rootEl.querySelector(".tab-panel.is-active");
+      if (activePanel) {
+        activePanel.querySelectorAll(".event-filter-target").forEach(function (card) {
+          if (!card.classList.contains("is-hidden")) visibleCount++;
+        });
+      }
+    }
+    var eventsEmpty = document.getElementById("eventsSearchNoResults");
+    if (eventsEmpty) {
+      eventsEmpty.classList.toggle("is-hidden", !(qTrim.length && visibleCount === 0));
+    }
   }
 
   function bindEventsSearch() {
@@ -462,13 +509,17 @@
     var qEl = document.getElementById("pubListSearch");
     var q = ((qEl && qEl.value) || "").trim().toLowerCase();
     var pubCards = document.querySelectorAll("#pubAllGrid .pub-filter-target");
+    var visibleCount = 0;
     pubCards.forEach(function (card) {
       var typeOk = val === "all" || card.getAttribute("data-type") === val;
       var hay = card.getAttribute("data-pub-search") || "";
       var searchOk = !q || hay.indexOf(q) !== -1;
       var show = typeOk && searchOk;
       card.classList.toggle("is-hidden", !show);
+      if (show) visibleCount++;
     });
+    var pubEmpty = document.getElementById("pubSearchNoResults");
+    if (pubEmpty) pubEmpty.classList.toggle("is-hidden", visibleCount > 0 || !q.length);
   }
 
   function bindPubListFilters() {
@@ -524,9 +575,6 @@
       parts.push("</div>");
     }
     root.innerHTML =
-      '<p id="newsSearchNoResults" class="detail-muted news-search-empty is-hidden" role="status">' +
-      "Ничего не найдено. Измените запрос или фильтр." +
-      "</p>" +
       '<div class="news-feed news-all-feed">' +
       parts.join("") +
       "</div>";
@@ -536,6 +584,7 @@
 
   if (page === "events") {
     root.innerHTML = renderEventsFullPage(data.events || []);
+    root.classList.add("events-view-all");
     bindDirectionsTabs(root);
     bindEventsSearch();
     return;

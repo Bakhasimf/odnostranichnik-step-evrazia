@@ -79,7 +79,8 @@
     });
 
     if (!hits.length) {
-      out.innerHTML = "<p class=\"detail-muted\">Ничего не найдено.</p>";
+      out.innerHTML =
+        "<p class=\"detail-muted search-results-empty\" role=\"status\">Информация не найдена.</p>";
       return;
     }
     out.innerHTML =

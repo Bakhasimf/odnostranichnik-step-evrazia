@@ -7,10 +7,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Spectral:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=21" />
+    <link rel="stylesheet" href="styles.css?v=23" />
   </head>
   <body class="page-sub" data-list-page="events">
     <header class="site-header site-header--sub" id="siteHeader">
@@ -33,6 +33,9 @@
               aria-label="Поиск по мероприятиям программы"
             />
           </div>
+          <p id="eventsSearchNoResults" class="detail-muted news-search-empty is-hidden" role="status">
+            Информация не найдена.
+          </p>
           <div id="listRoot"></div>
         </div>
       </section>
@@ -43,6 +46,6 @@
       </div>
     </footer>
     <script src="site-data.js?v=2"></script>
-    <script src="list-all.js?v=7"></script>
+    <script src="list-all.js?v=10"></script>
   </body>
 </html>

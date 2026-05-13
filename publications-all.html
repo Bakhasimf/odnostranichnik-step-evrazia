@@ -7,10 +7,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Spectral:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20" />
+    <link rel="stylesheet" href="styles.css?v=22" />
   </head>
   <body class="page-sub" data-list-page="publications">
     <header class="site-header site-header--sub" id="siteHeader">
@@ -34,6 +34,9 @@
               aria-label="Поиск по публикациям"
             />
           </div>
+          <p id="pubSearchNoResults" class="detail-muted news-search-empty is-hidden" role="status">
+            Информация не найдена.
+          </p>
 
           <div class="filters pub-filters reveal" role="tablist" aria-label="Фильтр публикаций">
             <button type="button" class="filter is-active" data-filter="all">Все</button>
@@ -55,6 +58,6 @@
       </div>
     </footer>
     <script src="site-data.js?v=2"></script>
-    <script src="list-all.js?v=5"></script>
+    <script src="list-all.js?v=9"></script>
   </body>
 </html>
